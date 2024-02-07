@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <script>
+    function loadScript(src) { 
+      let script = document.createElement('script');
+      script.src = src;
+      document.head.append(script);
+    }
+
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js');
+    // script loading is asynchronous in javascript
+    // so the code below will immediately start to execute
+    // even if the script load hasn't completed
+    // if the next code calls a function included in the 
+    // script before it's loaded
+    // it will fail
+
+    //alert( _ );
+    //the above probably fails when not commented and stops the script
+    // but the timeout below should run given a good internet connection
+    
+    setTimeout(function() {
+      console.log('console test just for fun');
+      alert( _ ); //this should work after 3 seconds
+    }, 3000);
+  </script>
+
+</body>
+
+</html>
