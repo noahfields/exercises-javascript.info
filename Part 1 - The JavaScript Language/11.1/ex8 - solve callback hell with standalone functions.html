@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <script>
+    function loadScript(source, callback) {
+      let script = document.createElement('script');
+      script.src = source;
+      script.onload = () => callback(null, script);
+      script.onerror = () => callback(new Error('an error'));
+      document.head.append(script);
+    }
+
+    // this is a bad design:
+    // functions are single use and clutter the namespace
+    // hard to read
+
+    loadScript('https://code.jquery.com/jquery-3.7.1.js', script1);
+    console.log('1');
+
+    function script1(error, script) {
+      alert('here');
+      if (error) {
+        alert(error);
+      } else {
+        alert(`${script.src} #1 loaded.`);
+        loadScript('https://code.jquery.com/jquery-1.12.4.js', script2);
+      }
+    }
+
+    function script2(error, script) {
+      if (error) {
+        alert(error);
+      } else {
+        alert(`${script.src} #2 loaded.`);
+        loadScript('fake_script.js', script3);
+      }
+    }
+    
+    function script3(error, script) {
+      if (error) {
+        alert(error);
+      } else {
+        alert(`${script.src} #3 loaded.`);
+        alert('All done.');
+      }
+    }
+  </script>
+
+</body>
+
+</html>

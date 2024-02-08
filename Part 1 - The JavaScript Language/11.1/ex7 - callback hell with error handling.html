@@ -2,9 +2,41 @@
 <html>
 
 <head>
-
 </head>
 
 <body>
 
+  <script>
+    function loadScript(src, callback) {
+      let script = document.createElement('script');
+      script.src = src;
+      script.onload = () => callback(null, script);
+      script.onerror = () => callback(new Error(`Error loading ${script.src}.`));
+      document.head.append(script);
+    }
+
+    loadScript('https://unpkg.com/react@18/umd/react.production.min.js', function(error, script) {
+      if (error) {
+        alert(error);
+      } else {
+        loadScript('https://code.jquery.com/jquery-3.7.1.js', function(error, script) {
+          if (error) {
+            alert(error);
+          } else {
+            loadScript('https://code.jquery.com/jquery-1.12.4.js', function(error, script) {
+              if (error) {
+                alert(error);
+              } else {
+                alert('All scripts loaded.');
+              }
+            });
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+
+</html>
 
