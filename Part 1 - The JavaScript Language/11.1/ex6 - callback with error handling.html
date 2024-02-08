@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <script>
+    function loadScript(source, callback) {
+      let script = document.createElement('script');
+      script.src = source;
+      script.onload = () => callback(null, script);
+      script.onerror = () => callback(new Error(`Error loading ${script.src}.`));
+      document.head.append(script);
+    }
+
+    loadScript('https://code.jquery.com/jquery-8.7.1.js', function(error, script) {
+      //error-first callback style   
+      if(error) {
+       alert(error);
+      } else {
+       alert(`${script.src} loaded.`);
+      }
+
+    });
+  </script>
+
+</body>
+
+</html>
